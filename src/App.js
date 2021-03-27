@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-
-
-async function getUsers() {
-  try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-    console.log(response);
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
-}
+import {ViewUser} from './components/ViewUser';
+import {getUsers} from './api/Users';
 
 class App extends Component{
 
   state = {
-    users:[]
+    users:[],
+    user: {}
   }
 
   componentDidMount = ()=> {
@@ -24,6 +15,12 @@ class App extends Component{
     });
   }
   
+
+  setActive = (user) => {
+    this.setState({
+      user:user
+    })
+  }
   render(){
 
 
@@ -33,14 +30,20 @@ class App extends Component{
       
       <div>
 
-
-          <ul>
-            {this.state.users.map(user => {
-                return <li>{user.name}</li>
-            })}
+          <ul >
+            {this.state.users.map(user => 
+                 <li key = {user.id}>
+                  {user.name} 
+                  <button style={{marginLeft:'20px'}} onClick= {()=> this.setActive(user)}> View Detail</button>
+                </li>
+            )}
            
           </ul>
 
+              {this.state.user.id>0 ?
+             <ViewUser user = {this.state.user} />
+          :null}
+          
 
       </div>
     );
