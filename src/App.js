@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {ViewUser} from './components/ViewUser';
-import {getUsers} from './api/Users';
+import {getUsers, deleteUser} from './api/Users';
 
 class App extends Component{
 
@@ -12,7 +12,9 @@ class App extends Component{
   componentDidMount = ()=> {
     getUsers().then(response => {
       this.setState({users : response.data})
-    });
+    }).catch(
+      ()=>{alert('an error ')
+    });;
   }
   
 
@@ -21,6 +23,25 @@ class App extends Component{
       user:user
     })
   }
+  deleteUser = (user) => {
+
+   
+    //delete from server
+    deleteUser(user.id).then(()=>{
+
+        //then delete from state
+        let users = this.state.users;
+        const index = users.indexOf(user);
+        users.splice(index, 1);
+        this.setState({
+          users:users
+        })
+
+    }).catch(
+      ()=>{alert('an error ')
+    });
+  }
+
   render(){
 
 
@@ -35,6 +56,7 @@ class App extends Component{
                  <li key = {user.id}>
                   {user.name} 
                   <button style={{marginLeft:'20px'}} onClick= {()=> this.setActive(user)}> View Detail</button>
+                  <button style={{marginLeft:'20px'}} onClick= {()=> this.deleteUser(user)}> Delete</button>
                 </li>
             )}
            
