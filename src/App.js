@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {ViewUser} from './components/ViewUser';
-import {getUsers, deleteUser, updateUser} from './api/Users';
+import {getUsers, deleteUser, updateUser, addUser} from './api/Users';
 import UsersForm from './components/UsersForm';
 class App extends Component{
 
@@ -48,6 +48,10 @@ class App extends Component{
       updateUser(id, values).then(()=> alert('Done'))
   }
 
+  addUser =(values)=> {
+    addUser(values).then(()=> alert('Done'))
+  } 
+
   render(){
 
 
@@ -73,8 +77,20 @@ class App extends Component{
           :null}
 
               {this.state.user.id>0 ?
-             <UsersForm values = {this.state.user}  onSubmit = {this.updateUser} />
+              <div>  
+                <h3> User Edit </h3>  
+                <UsersForm values = {this.state.user}  onSubmit = {this.updateUser} />
+              </div>
+            
           :null}
+
+              <div>  
+                <h3> Add User </h3>  
+                <UsersForm values = {{
+                  name : '',
+                  email: ''
+                }}  onSubmit = {this.addUser} />
+              </div>
 
           
 
