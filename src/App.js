@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {ViewUser} from './components/ViewUser';
 import {getUsers, deleteUser} from './api/Users';
-
+import UsersForm from './components/UsersForm';
 class App extends Component{
 
   state = {
@@ -65,6 +65,11 @@ class App extends Component{
               {this.state.user.id>0 ?
              <ViewUser user = {this.state.user} />
           :null}
+
+              {this.state.user.id>0 ?
+             <UsersForm values = {this.state.user}  onSubmit = {values => console.log(values)} />
+          :null}
+
           
 
       </div>
