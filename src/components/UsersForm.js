@@ -14,14 +14,14 @@ export default function UsersForm(props){
     <h3> User Edit </h3>
     
     <Formik 
-
     enableReinitialize = 'true'
     validationSchema = {schema}
     initialValues= {props.values} 
     onSubmit = {props.onSubmit}
-    render = {props => {return <Form >
+    >
+        {props =>  <Form >
 
-        <label>Name </label>
+        <label>Name </label><br/>
         <Field name = "name"/>
         <ErrorMessage name= "name"/>
 
@@ -33,10 +33,9 @@ export default function UsersForm(props){
       <button type = 'submit'> Send </button>
 
 
-    </Form>}}
-    
-    
-    />
+        </Form>}
+
+    </Formik>
     
     </div> 
 
